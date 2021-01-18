@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/settings-stylesheet.css">
+  </head>
+  <body>
+    
+     <!---------------------- SIDE  NAVIGATION -------------------------------->
+    
+    <div class="sidenav">
+      <a href="/users/<%= userid %>"><button type="button" class="profilebutton"></button></a>
+			<br><br>
+      <a href="/home" style="text-decoration: none;"><button type="button" class="feedbutton"></button></a> 
+      <br><br>
+			<a href="/search" style="text-decoration: none;"><button type="button" class="searchbutton"></button></a>
+			<br><br>
+      <form action="/logout" method="post">
+		  	<input type="submit" class="logoutbutton" value="">
+      </form>
+		</div>
+    
+    <!------------------ END OF SIDE NAVIGATION ----------------------------------------->
+    
+  <center><br><br><br>
+    <div class="settings-card"><br>
+      <span style="color: #777777;font-size: 25px;font-weight:bold">Settings</span><br><br>
+      <div id="tab"><a href="/settings/editprofile">Edit profile</a></div>
+      <div id="tab"><a href="/settings/update-profilepic">Change profile picture</a></div>
+       <div id="tab"><a href="/settings/update-email">Update email</a> </div>
+       <div id="tab"><a href="/settings/update-pass">Change Password</a></div>
+      <br><br>
+    
+    </div>
+    <br>
+  </center>
+  </body>

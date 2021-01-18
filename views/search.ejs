@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://socialwebapp.drodriguez.dev/assets/search-stylesheet.css">
+   </head>
+  <body>
+    
+    <div class="navbar">
+    <span id="navbar-title">Search</span>
+    </div>
+    
+       <!---------------------- SIDE  NAVIGATION -------------------------------->
+    
+    <div class="sidenav">
+      <a href="/users/<%= userid %>"><button type="button" class="profilebutton"></button></a>
+			<br><br>
+		  <a href="/home" style="text-decoration: none;"><button type="button" class="feedbutton"></button></a>
+			<br><br>
+			<a href="/settings" style="text-decoration: none;"><button type="button" class="settingsbutton"></button></a>
+			<br><br>
+      <form action="/logout" method="post">
+		  	<input type="submit" class="logoutbutton" value="">
+      </form>
+		</div>
+    
+    <!------------------ END OF SIDE NAVIGATION ----------------------------------------->
+    <br><br><br><br><br><br>
+     <div class="results-container">
+       <input type="text" id="searchbar" placeholder="Search for a post or user" onkeyup="search()">
+       <h1>Posts</h1>
+    <div id="pcontainer">
+       
+       
+       </div>
+       
+       <h1>Users </h1>
+    <div id="ucontainer">
+       
+       
+       </div>
+       </div>
+    
+    <script>
+    function search(){
+      var searchinput = document.getElementById("searchbar").value;
+      document.getElementById("pcontainer").innerHTML = "";
+      document.getElementById("ucontainer").innerHTML = "";
+      jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/search-request",
+                  data:'searchinput='+searchinput,
+                  type: "POST",
+                  success:function(data){
+                   for (var i = 0; i < data.postsdata.length; i++) { //posts results
+                       $("#pcontainer").append("<div class='post-card'><div class='topandmiddle'><a href='/users/"+data.postsdata[i]['user_id']+"'><div class='profilepic'><img src='https://socialwebapp.drodriguez.dev/assets/profilepic.png'></div><div class='usernameandcontent'><span class='usernametext'>"+data.postsdata[i]['username']+"</span></a><br>"+data.postsdata[i]['text']+"<br><br><a href='/posts/"+data.postsdata[i]['post_id']+"'>Go to post >></a></div></div>");
+                      }
+                    if(document.getElementById("searchbar").value == ""){
+                       document.getElementById("pcontainer").innerHTML = "";
+                       }
+                     for (var i = 0; i < data.usersdata.length; i++) { //user results
+                       $("#ucontainer").append("<div class='post-card'><div class='topandmiddle'><a href='/users/"+data.usersdata[i]['user_id']+"'><div class='profilepic'><img src='https://socialwebapp.drodriguez.dev/assets/profilepic.png'></div><div class='usernameandcontent'><span class='usernametext'>"+data.usersdata[i]['username']+"</span></a><br>"+data.usersdata[i]['bio']+"<br><br><a href='/users/"+data.usersdata[i]['user_id']+"'>Go to profile >> </a></div></div>");
+                      }
+                    if(document.getElementById("searchbar").value == ""){
+                       document.getElementById("ucontainer").innerHTML = "";
+                       }
+                   },                          
+                  error: function(){
+                    console.log('There was an error querying results.');
+                  }
+                }); 
+      
+      
+      }
+    </script>
+    
+    
+    
+  </body>
+  

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="./assets/signup-stylesheet.css">
+  </head>
+  <body>
+    <br><br><br>
+      <form id ="contact-form" method="POST" action="/sign-up">
+        <center>
+    <div class="signup-card">
+      <br>
+      <span style="color: #777777;font-size: 25px;font-weight:bold">SIGNUP</span><br><br>
+  <input type="text" name="email" id="email" class="emailinput"  placeholder="Email" oninput="validateEmail(); checkEmailAvailability(); checkIfBlanks();">
+  <br><br>
+  <span id="email-availability-status"></span>
+    <span id="email-format-status"></span>
+  <input type="text" name="username" id="username" class="usernameinput"  placeholder="Username" oninput="checkUsernameMinimum(); checkUsernameAvailability(); checkIfBlanks(); checkUsernameFormat()">
+  <br>  <br>
+  <span id="user-availability-status"></span>
+    <span id="user-string-check"></span>
+   
+  <input type="password" name="password" id="password" class="passwordinput" placeholder="Password" oninput="validatePassword(); checkIfBlanks();">
+  <br>
+  <span id="pass-format-status"></span> 
+  <br>
+  <input type="password" name="confirm_password" id="confirm_password" class="confirmpasswordinput" placeholder="Confirm Password" oninput="validateConfirmPassword(); checkIfBlanks();">
+      <br>
+   <span id="confirm-pass-format-status"></span>  <br>
+  <input type="submit" value="Submit" id="submit" class="submitbutton" disabled>
+      <br><br>
+      </div>
+          
+        </form>
+<br>
+    <a href="/login">Have an account already? Login here.</a>
+     </center>
+  </body>
+  
+<!-------------- Username Validation ------------------------>  
+<script>
+  //global vars
+  var isUserAvailable;
+  var isEmailAvailable;
+  
+function checkUsernameMinimum(){
+  var username_string = document.getElementById("username").value;
+  if (username_string.length < 3){
+    document.getElementById("user-string-check").innerHTML = "<font color='red'>Your username must be at least 3 characters long.</font>";
+    return false;
+  }
+  if (username_string.length >= 3){
+       document.getElementById("user-string-check").innerHTML = "";
+       checkUsernameAvailability();
+       return true;
+  } 
+}
+  
+function checkUsernameFormat(){
+  var username_string = document.getElementById("username").value;
+  
+  const usernameformat = /^[a-zA-Z0-9_]*$/;
+          if(username_string.match(usernameformat)){
+            document.getElementById("user-string-check").innerHTML = "";
+            return true; //if format is okay, returns true
+          }
+          else {
+            document.getElementById("user-string-check").innerHTML = "<font color='red'>This username format is incorrect</font>";
+            return false;
+          }
+}  
+  
+function checkUsernameAvailability() {
+  var usernameinput = document.getElementById("username").value;
+		 jQuery.ajax({
+        url: "https://socialwebapp.drodriguez.dev/routes/username_availability_check",
+        data:'username='+usernameinput,
+        type: "POST",
+        success:function(response){
+          var status = response;
+          if(status == "Unavailable"){
+            document.getElementById("user-availability-status").innerHTML = "<font color='red'>This username has already been used.</font>";
+            isUserAvailable = "false";
+          } else if(status == "Available"){
+            document.getElementById("user-availability-status").innerHTML = "";
+            isUserAvailable = "true";
+          }
+      },
+        error:function (){}
+      });
+}
+
+  
+// ------------- Email Validation ------------------------>
+
+function validateEmail(){
+    var emailinput = document.getElementById("email").value;
+		const emailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if(emailinput.match(emailformat))	{
+			document.getElementById("email-format-status").innerHTML = "";
+				return true;
+			}	else {
+		  document.getElementById("email-format-status").innerHTML = "<font color='red'>This email format is incorrect.</font>";
+				return false;
+			}
+	}
+  
+function checkEmailAvailability() {
+  var emailinput2 = document.getElementById("email").value;
+		 jQuery.ajax({
+        url: "https://socialwebapp.drodriguez.dev/routes/email_availability_check",
+        data:'email='+emailinput2,
+        type: "POST",
+        success:function(response){
+          var status = response;
+          if(status == "Unavailable"){
+            document.getElementById("email-availability-status").innerHTML = "<font color='red'>This email has already been used.</font>";
+            isEmailAvailable = "false";
+          } else if(status == "Available"){
+            document.getElementById("email-availability-status").innerHTML = "";
+            isEmailAvailable = "true";
+          }
+      },
+        error:function (){}
+      });
+}
+
+// ------------- Password Validation ------------------------
+  
+function validatePassword() {
+  var password_input = document.getElementById("password").value;
+   var pass_regex = new RegExp(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/g);
+  if (pass_regex.test(password_input)) {
+   document.getElementById("pass-format-status").innerHTML = "";
+    return true;
+  } else {
+   document.getElementById("pass-format-status").innerHTML = "<font color='red'>Your password must contain at least 8 characters - at least one uppercase, one lowercase and a number</font>";
+    return false;
+  }
+}
+  
+function validateConfirmPassword() {
+  var confirm_password_input = document.getElementById("confirm_password").value;
+  var password_input = document.getElementById("password").value;
+
+  if (password_input == confirm_password_input) {
+    document.getElementById("confirm-pass-format-status").innerHTML = "";
+    return true;
+  } else {
+      document.getElementById("confirm-pass-format-status").innerHTML = "<font color='red'>The passwords do not match.</font>";
+    return false;
+  }
+}
+
+// <!-------------- Final Validation ------------------------>
+ 
+function checkIfBlanks(){
+    var username_input = document.getElementById("username").value;
+    var email_input = document.getElementById("email").value;
+    var password_string = document.getElementById("password").value;
+
+    if (username_input.length != 0 && email_input.length != 0 && password_string.length != 0 && checkUsernameMinimum() && checkUsernameFormat() && isUserAvailable == "true" && validateEmail() && isEmailAvailable == "true" && validatePassword() &&  validateConfirmPassword()) {
+      document.getElementById("submit").disabled = false;
+      } else {
+      document.getElementById("submit").disabled = true;
+       }
+ /* console.log("_________________________________________________");
+  console.log("Username input length = "+username_input.length);
+  console.log("Email input length = "+email_input.length);
+  console.log("Password input length = "+password_string.length);
+  console.log("checkUsernameMinimum()) = "+checkUsernameMinimum());
+  console.log("isUserAvailable = "+isUserAvailable);
+  console.log("validateEmail() = "+validateEmail());
+  console.log("isEmailAvailable = "+isEmailAvailable);
+  console.log("validatePassword() = "+validatePassword());
+  console.log("validateConfirmPassword() = "+validateConfirmPassword());
+  console.log("_________________________________________________"); */
+  }
+</script>

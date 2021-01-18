@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://socialwebapp.drodriguez.dev/assets/myposts-stylesheet.css">
+  </head>
+  <body>
+      
+      <div class="navbar">
+        <span id="navbar-title">Home</span>
+        </div>
+    
+      <!------------- POST SENDER ----------------->
+     <br><br><br><br><br>
+        <center>
+      <div class="post-field-box">
+      <textarea id="post-field" maxlength="140" placeholder="What's happening...." onkeyup="counterchars()"></textarea>
+          <br>
+       <span id="charcounter"></span>
+      <input type="submit" id="submit-post" value="Submit">
+          <br>
+          <span id="submit-response"></span>
+      </div>
+      </center>
+      <br><br><br>
+      
+   <script type="text/javascript">
+			function counterchars(){
+				var fieldlength = document.getElementById("post-field").value.length;
+				document.getElementById("charcounter").innerHTML = fieldlength+"/140";
+			}
+		</script>
+   <!------------- POST SENDER ENDS ----------------->
+   
+    <!------------- POST SENDER FUNCTIONALITY ----------------->
+         <script type="text/javascript">
+           $("#submit-post").click(function(e){
+             var posttext = document.getElementById("post-field").value;
+             
+                jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/post_sender",
+                  data:'userid='+<%= userid %>+'&posttext='+posttext,
+                  type: "POST",
+                  success: function(){
+                    document.getElementById("submit-response").innerHTML = "Your post has been successfully posted.";
+                    document.getElementById("post-field").value = "";
+                    location.reload();
+                  },
+                  error: function(){
+                    document.getElementById("submit-response").innerHTML = "There was an error submitting your post.";
+                  }
+                });               
+                  
+              
+            });                           
+          </script>
+          <!------------- POST SENDER FUNCTIONALITY ENDS ----------------->
+    
+    
+    <!---------------------- SIDE  NAVIGATION -------------------------------->
+    
+    <div class="sidenav">
+      <a href="/users/<%= userid %>"><button type="button" class="profilebutton"></button></a>
+			<br><br>
+			<a href="/search" style="text-decoration: none;"><button type="button" class="searchbutton"></button></a>
+			<br><br>
+			<a href="/settings" style="text-decoration: none;"><button type="button" class="settingsbutton"></button></a>
+			<br><br>
+      <form action="/logout" method="post">
+		  	<input type="submit" class="logoutbutton" value="">
+      </form>
+		</div>
+    
+    <!------------------ END OF SIDE NAVIGATION ----------------------------------------->
+    
+    
+    
+    <!---------------------- TOP NAVIGATION -------------------------------->
+    <div class="tab">
+      <a href="/home"><button class="tablinks"><b><font color="black">Main</font></b></button></a>
+			<button class="tablinks"><b>My Posts</b></button>
+		</div>
+    <!------------------ END OF TOP NAVIGATION ----------------------------------------->
+    
+    
+    
+    
+    
+    
+    
+    <div class="posts-container">
+      <br><br>
+    <!------------------------------------- POSTS SECTION BEGINS ------------------------------------------------>
+    <% for(var p=0; p<posts.length; p++){ %>
+    
+    <!---------------------------------- FOR REG POSTS ---------------------------------------------->
+      <% if(posts[p]['post_type'] == 'reg'){ %> <!-- for reg posts -->
+    
+			<div class="post-card">
+				<div class="topandmiddle">
+					<div class="profilepic"><img src="https://socialwebapp.drodriguez.dev/assets/profilepic.png"></div>
+					<div class="usernameandcontent">
+            <span class="usernametext"><%= posts[p]['username'] %></span> •
+            <% var date = posts[p]['general_time']; %>
+            <% var utc = moment.utc(date, "YYYY-MM-DD HH:mm:ss"); %>
+              <% var local = utc.local(); %>
+                <% local.format("HH:mm:ss") %>
+                   <%= local.fromNow(); %>
+            <br>
+						<%= posts[p]['text'] %>
+						<br>
+					</div>
+				</div>
+				<br>
+				<div class="bottompart">
+					<div class="firstbuttondiv">
+						<span class="likebuttonnum" id="likecounter<%= p %>"><%= posts[p]['likecount'] %></span><br>
+						<button type="button" class="likebutton" id="onClick<%= p %>"></button>
+					</div>
+					
+					<div class="secondbuttondiv">
+						<span class="repostbuttonnum" id="repostcounter<%= p %>"><%= posts[p]['repostcount'] %></span><br>
+						<button type="button" class="repostbutton" id="onClickR<%= p %>"></button>
+					</div>
+					
+					<div class="thirdbuttondiv">
+						<span class="commentbuttonnum">X</span><br>
+						<button type="button" class="commentbutton"></button>
+					</div>
+				</div>
+				
+			</div>
+    <br><br>
+      
+        <!------------------------------ LIKES Functionality ------------------------------------>
+          <script type="text/javascript">
+            //checks to see if post has been liked already so it can set true or false
+            var flag<%= p %>;
+            jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/like_status",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST",
+                  success:function(data){
+                    if(data == "true"){
+              document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton-hover.png)";
+              document.getElementById('likecounter<%= p %>').style.color = "#E0245E"; 
+                      flag<%= p %> = true;
+                     } else if(data == "false"){
+              document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton.png)";
+                  document.getElementById('likecounter<%= p %>').style.color = "#7F7F7F";
+                      flag<%= p %> = false;
+                     }
+                  }
+                 });
+           
+            //toggles +1 or -1 likes
+           $("#onClick<%= p %>").click(function(e){
+           e.stopPropagation();
+           var likeVal = parseInt($("#likecounter<%= p %>").text(),10);
+            if(flag<%= p %>){ //unlike
+              $("#likecounter<%= p %>").text(likeVal-1);
+                                  
+                jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/like_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});               
+               
+              document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton.png)";
+             document.getElementById('likecounter<%= p %>').style.color = "#7F7F7F";
+                                      
+            } else { //like
+              $("#likecounter<%= p %>").text(likeVal+1);
+                
+                  jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/like_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});                 
+             document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton-hover.png)";
+              document.getElementById('likecounter<%= p %>').style.color = "#E0245E";
+                                     
+             }
+            flag<%= p %>=!flag<%= p %>;
+            });              
+        </script>
+            <!----------------- LIKES END ----------------->
+          
+          <!------------------------------- REPOST BUTTON & COUNTER -------------------------------------->
+          <script type="text/javascript">
+            //checks to see if post has been reposted already so it can set true or false
+            var rstatus<%= p %>;
+            jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/repost_status",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST",
+                  success:function(data){
+                    if(data == "true"){
+                document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton-hover.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#33BF63"; 
+                      rstatus<%= p %> = true;
+                     } else if(data == "false"){
+              document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#7F7F7F"; 
+                      rstatus<%= p %> = false;
+                     }
+                  }
+                 });
+           
+            //toggles +1 or -1 reposts
+           $("#onClickR<%= p %>").click(function(e){
+           e.stopPropagation();
+           var repostVal = parseInt($("#repostcounter<%= p %>").text(),10);
+            if(rstatus<%= p %>){ //un-repost
+              $("#repostcounter<%= p %>").text(repostVal-1);
+                                  
+                jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/repost_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});
+         
+              document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#7F7F7F"; 
+       //       document.getElementById("onClickR<%= p %>").innerHTML = "Repost";
+                                  
+            } else { //repost
+              $("#repostcounter<%= p %>").text(repostVal+1);
+                
+                  jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/repost_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});
+              
+              document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton-hover.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#33BF63"; 
+      //        document.getElementById("onClickR<%= p %>").innerHTML = "Unrepost"
+                                  
+             }
+            rstatus<%= p %>=!rstatus<%= p %>;
+            });                           
+          </script>
+          <!----------------- Reposts Functionality END ----------------->
+            
+          </script>
+        <% } %>
+    <!---------------------------------- FOR REG POSTS ENDS ---------------------------------------------->
+  
+  
+  <!---------------------------------------- FOR REPOSTS ---------------------------------------------->
+  <% if(posts[p]['post_type'] == 'repost'){ %> <!-- for reposts -->
+  
+  <div class="wrapper-repost-container">
+  <div class="repost-tag"><center>Repost</center></div>
+			<div class="post-card">
+				<div class="topandmiddle">
+					<div class="profilepic"><img src="https://socialwebapp.drodriguez.dev/assets/profilepic.png"></div>
+					<div class="usernameandcontent">
+						<span class="usernametext"><%= posts[p]['username'] %></span>
+             <% var date = posts[p]['general_time']; %>
+            <% var utc = moment.utc(date, "YYYY-MM-DD HH:mm:ss"); %>
+              <% var local = utc.local(); %>
+                <% local.format("HH:mm:ss") %>
+                   <%= local.fromNow(); %>
+            <br>
+						<%= posts[p]['text'] %>
+						<br>
+					</div>
+				</div>
+				<br>
+				<div class="bottompart">
+					<div class="firstbuttondiv">
+						<span class="likebuttonnum" id="likecounter<%= p %>"><%= posts[p]['likecount'] %></span><br>
+						<button type="button" class="likebutton" id="onClick<%= p %>"></button>
+					</div>
+					
+					<div class="secondbuttondiv">
+						<span class="repostbuttonnum" id="repostcounter<%= p %>"><%= posts[p]['repostcount'] %></span><br>
+						<button type="button" class="repostbutton" id="onClickR<%= p %>"></button>
+					</div>
+					
+					<div class="thirdbuttondiv">
+						<span class="commentbuttonnum">X</span><br>
+						<button type="button" class="commentbutton"></button>
+					</div>
+				</div>
+				
+			</div>
+		
+    </div>
+       <br><br>
+        <!------------------------------ LIKES Functionality ------------------------------------>
+          <script type="text/javascript">
+            //checks to see if post has been liked already so it can set true or false
+            var flag<%= p %>;
+            jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/like_status",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST",
+                  success:function(data){
+                    if(data == "true"){
+               document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton-hover.png)";
+              document.getElementById('likecounter<%= p %>').style.color = "#E0245E"; 
+                      flag<%= p %> = true;
+                     } else if(data == "false"){
+              document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton.png)";
+              document.getElementById('likecounter<%= p %>').style.color = "#7F7F7F";
+                      flag<%= p %> = false;
+                     }
+                  }
+                 });
+           
+            //toggles +1 or -1 likes
+           $("#onClick<%= p %>").click(function(e){
+           e.stopPropagation();
+           var likeVal = parseInt($("#likecounter<%= p %>").text(),10);
+            if(flag<%= p %>){ //unlike
+              $("#likecounter<%= p %>").text(likeVal-1);
+                                  
+                jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/like_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});               
+             document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton.png)"; 
+          document.getElementById('likecounter<%= p %>').style.color = "#7F7F7F";
+                                     
+            } else { //like
+              $("#likecounter<%= p %>").text(likeVal+1);
+                
+                  jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/like_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});                 
+                document.getElementById('onClick<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/likebutton-hover.png)";
+            document.getElementById('likecounter<%= p %>').style.color = "#E0245E";
+                                        
+             }
+            flag<%= p %>=!flag<%= p %>;
+            });              
+        </script>
+            <!----------------- LIKES END ----------------->
+          
+          <!------------------------------- REPOST BUTTON & COUNTER -------------------------------------->
+          <script type="text/javascript">
+            //checks to see if post has been reposted already so it can set true or false
+            var rstatus<%= p %>;
+            jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/repost_status",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST",
+                  success:function(data){
+                    if(data == "true"){
+              document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton-hover.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#33BF63"; 
+                      rstatus<%= p %> = true;
+                     } else if(data == "false"){
+               //       document.getElementById("onClickR<%= p %>").innerHTML = "Repost";
+              document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#7F7F7F";
+                      rstatus<%= p %> = false;
+                     }
+                  }
+                 });
+           
+            //toggles +1 or -1 reposts
+           $("#onClickR<%= p %>").click(function(e){
+           e.stopPropagation();
+           var repostVal = parseInt($("#repostcounter<%= p %>").text(),10);
+            if(rstatus<%= p %>){ //un-repost
+              $("#repostcounter<%= p %>").text(repostVal-1);
+                                  
+                jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/repost_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});
+             
+               document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#7F7F7F"; 
+          //    document.getElementById("onClickR<%= p %>").innerHTML = "Repost";
+                                  
+            } else { //repost
+              $("#repostcounter<%= p %>").text(repostVal+1);
+                
+                  jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/repost_sender",
+                  data:'postid='+<%= posts[p]['post_id'] %>+'&userid='+<%= userid %>,
+                  type: "POST"});
+             
+               document.getElementById('onClickR<%= p %>').style.backgroundImage="url(https://socialwebapp.drodriguez.dev/assets/repostbutton-hover.png)";
+              document.getElementById('repostcounter<%= p %>').style.color = "#33BF63";    
+           //   document.getElementById("onClickR<%= p %>").innerHTML = "Unrepost"
+                                  
+             }
+            rstatus<%= p %>=!rstatus<%= p %>;
+            });                           
+          </script>
+          <!----------------- Reposts Functionality END ----------------->
+            
+          </script>
+    </center>
+        <% } %>
+  <!---------------------------------- FOR REPOSTS ENDS -------------------------------------------->
+  
+  
+    <% } %>
+    <!------------------------------------------- POSTS SECTION ENDS -------------------------------------->
+    
+  </div> <!------ end of post container --->
+</div> 
+   
+  </body>

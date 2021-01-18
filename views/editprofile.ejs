@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://socialwebapp.code.jquery.com/jquery-2.1.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://socialwebapp.drodriguez.dev/assets/editprofile-stylesheet.css">
+  </head>
+  <body>
+     <!---------------------- SIDE  NAVIGATION -------------------------------->
+    
+    <div class="sidenav">
+      <a href="/users/<%= userid %>"><button type="button" class="profilebutton"></button></a>
+			<br><br>
+      <a href="/home" style="text-decoration: none;"><button type="button" class="feedbutton"></button></a> 
+      <br><br>
+			<a href="/search" style="text-decoration: none;"><button type="button" class="searchbutton"></button></a>
+			<br><br>
+      <form action="/logout" method="post">
+		  	<input type="submit" class="logoutbutton" value="">
+      </form>
+		</div>
+    
+    <!------------------ END OF SIDE NAVIGATION ----------------------------------------->
+    
+
+    
+  <br><br>
+    
+    <% for(var i=0; i<data.length; i++){ %>
+    <div class="edit-card"><br>
+      <center>
+      <span style="color: #777777;font-size: 25px;font-weight:bold">Edit Profile</span><br><br>
+      <input type="text" name="username" class="usernameinput" id="usernameinput" value="<%= data[i]['username'] %>" placeholder="Enter username" onkeyup="usernameAvailability(); usernameFormatCheck();">   
+        <span id="user-update-format-response"></span>
+        <span id="user-update-availability-response"></span>
+         <span id="user-update-response"></span>
+       <br><br>
+      <input type="submit" class="updateusernamebutton" id="updateusernamebutton" value="Update Username" onclick="updateNewUsername();" />
+      <br><br>
+        <textarea class="bioinput" id="bioinput" maxlength="50" placeholder="You have nothing here :("><%= data[i]['bio'] %></textarea>
+        <span id="bio-update-response"></span>
+      <br><br>
+     <input type="submit" class="updatebiobutton" id="updatebiobutton" value="Update Bio" onclick="sendUpdatedBio();" />
+      <br><br>
+     <a href="/settings/update-email"><button>Update Email</button></a> 
+        <br><br>
+     <a href="/settings/update-password"><button>Update Password</button></a>   
+      <br><br>
+      </center>
+    </div>
+    
+    <% } %>
+    
+    <!---- onkeup check if username format is valid and if is taken--->
+    
+    
+    <script>
+      var returnstatus;
+      //username availability check
+      function usernameAvailability(){
+        var usernameinput = document.getElementById("usernameinput").value;
+         jQuery.ajax({
+              url: "https://socialwebapp.drodriguez.dev/routes/username_availability_check",
+              data:'username='+usernameinput,
+              type: "POST",
+              success:function(response){
+                var status = response;
+                if(status == "Unavailable"){
+                  document.getElementById("user-update-availability-response").innerHTML = "<br>This username is unavailable.";
+                  document.getElementById("user-update-response").innerHTML = "";
+                  returnstatus = "false";
+                } 
+                if(status == "Available"){
+                  document.getElementById("user-update-availability-response").innerHTML = "";
+                  document.getElementById("user-update-response").innerHTML = "";
+                  returnstatus = "true";
+                }
+            },
+              error:function (){}
+            });
+          
+        }
+      
+      function usernameFormatCheck(){
+        var usernameinput = document.getElementById("usernameinput").value;
+        const usernameformat = /^[a-zA-Z0-9_]*$/;
+          if(usernameinput.match(usernameformat)){
+            document.getElementById("user-update-format-response").innerHTML = "";
+            document.getElementById("user-update-response").innerHTML = "";
+            return true; //if format is okay, returns true
+          }
+          else {
+            document.getElementById("user-update-format-response").innerHTML = "<br>Username format is invalid.";
+            document.getElementById("user-update-response").innerHTML = "";
+            return false;
+          }
+        
+      }
+      
+       // submit new username if validation is okay
+     function updateNewUsername(){
+        var usernameinput = document.getElementById("usernameinput").value;
+        var usernameinputlength = document.getElementById("usernameinput").value.length; 
+        //if format is valid and name isnt taken, allow submission
+          if(returnstatus=="true" && usernameFormatCheck() && usernameinputlength > 2){ //if all are true, submit change
+            
+              jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/update/updateusername",
+                  data:'userid='+<%= userid %>+'&username='+usernameinput,
+                  type: "POST",
+                  success: function(){
+                    document.getElementById("user-update-response").innerHTML = "Username successfully updated.";
+                    
+                  },
+                  error: function(){
+                    document.getElementById("user-update-response").innerHTML = "There was an error updating your username.";
+                  }
+                });       
+            
+          } else {
+            document.getElementById("user-update-response").innerHTML = "There was an error updating your username.";
+          }
+       };
+      
+        
+    </script>
+    
+     <script>
+       // submit new username if validation is okay
+     function sendUpdatedBio(){
+        var bioinput = document.getElementById("bioinput").value;
+        var bioinputlength = document.getElementById("bioinput").length;
+       
+           jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/update/updatebio",
+                  data:'userid='+<%= userid %>+'&bio='+bioinput,
+                  type: "POST",
+                  success: function(){
+                    document.getElementById("bio-update-response").innerHTML = "<br>Bio successfully updated.";
+                    
+                  },
+                  error: function(){
+                    document.getElementById("bio-update-response").innerHTML = "There was an error updating your bio.";
+                  }
+                });       
+       };
+      
+        
+    </script>
+    
+  </body>

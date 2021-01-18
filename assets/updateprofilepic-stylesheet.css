@@ -1,0 +1,105 @@
+html {
+  min-height: 100%;
+  position:relative;
+}
+body { 
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Helvetica, sans-serif;
+	background: rgb(116,86,122);
+	background: linear-gradient(0deg, rgba(116,86,122,1) 0%, rgba(100,77,111,1) 54%, rgba(41,64,105,1) 100%);
+  background-repeat: no-repeat;
+}
+.sidenav {
+  float: left;
+  margin-top: 60px;
+	margin-left: 20px;
+	display: inline-block;
+	width: 10%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+.profilebutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/profilepic.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.feedbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/feedbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.searchbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/searchbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.logoutbutton {
+  background-color: transparent;
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/logoutbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+  border: none;
+}
+.edit-card {
+	background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+	border-radius: 5px;
+	width: 40%;
+	box-shadow: 0px 2px 5px 2px rgba(0,0,0,0.75);
+}
+#imageholder {
+  box-shadow: 0px 3px 12px -3px rgba(0,0,0,0.75);
+	border-radius: 50%;
+	width:200px;
+	height: 180px;
+	object-fit: cover;
+}
+.actualbutton {
+  -webkit-appearance: none;
+	border-radius: 10px;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	color: white;
+	border: none;
+	width: 90%;
+	height: 35px;
+	background-color: #426BD7;
+}
+.submit {
+  -webkit-appearance: none;
+	border-radius: 10px;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	color: white;
+	border: none;
+	width: 90%;
+	height: 35px;
+	background-color: #426BD7;
+}

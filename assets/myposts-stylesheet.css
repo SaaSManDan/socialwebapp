@@ -1,0 +1,345 @@
+html {
+  min-height: 100%;
+  position:relative;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: white;
+}
+
+
+.sidenav {
+  float: left;
+  margin-top: 60px;
+	margin-left: 20px;
+	display: inline-block;
+	width: 10%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+.profilebutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/profilepic.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.feedbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/feedbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.searchbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/searchbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.settingsbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/settingsbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.logoutbutton {
+  background-color: transparent;
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/logoutbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+  border: none;
+}
+.navbar { 
+  margin: 0 auto;
+  padding: 0;
+  padding-top: 12px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 25px;
+  z-index: 2;
+  background: #294069;
+  box-shadow: 0 4px 2px -2px gray;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  color: white;
+}
+
+.tabcontent {
+	display: block;
+	width: 75%;
+  margin: 0 auto;
+	background: rgb(116,86,122);
+	background: linear-gradient(0deg, rgba(116,86,122,1) 0%, rgba(100,77,111,1) 54%, rgba(41,64,105,1) 100%);
+	height: 100%;
+	box-shadow: -2px -2px 2px 2px #7F7F7F;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	z-index: -1;
+}
+.tab {
+	margin-left: 15%;
+}
+.tablinks {
+	font-size: 15px;
+	color: white;
+	background-color:  #294069;
+	margin-top: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-style: none;
+	height: 40px;
+	width: 25%;
+}
+textarea {
+  background-color: #EBEBF0;
+	border-radius: 10px;
+	border-style: none;
+	-webkit-appearance: none;
+	padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+	width: 90%;
+	height:50px;
+	resize:none;
+	font-size:20px;
+}
+textarea:focus {
+	outline: none;
+}
+#charcounter {
+	border-style: none;
+	border-radius: 3px;
+	width: 80px;
+	height: 35px;
+	font-family: Helvetica, sans-serif;
+	font-size: 14px;
+	float: left;
+}
+#submit-post {
+	border-style: none;
+	border-radius: 5px;
+  margin-top: 5px;
+  margin-right: 5%;
+	width: 80px;
+	height: 35px;
+	font-family: Helvetica, sans-serif;
+	font-size: 14px;
+  color: white;
+  font-weight: bold;
+	background-color: #2A4068;
+	-webkit-appearance: none;
+	float: right;
+}
+.post-field-box {
+  background-color: white;
+	box-shadow: 0px 0px 5px 1px #7F7F7F;
+	font-family: Helvetica, sans-serif;
+	font-weight: lighter;
+	padding-top: 10px;
+  border-radius: 10px;
+	width: 60%;
+  height: 125px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.posts-container {
+  display: block;
+	width: 75%;
+  margin: 0 auto;
+	background: rgb(116,86,122);
+	background: linear-gradient(0deg, rgba(116,86,122,1) 0%, rgba(100,77,111,1) 54%, rgba(41,64,105,1) 100%);
+	box-shadow: -2px -2px 2px 2px #7F7F7F;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	z-index: -1;
+}
+.wrapper-repost-container {
+  width: 100%;
+}
+.repost-tag {
+   top: 0;
+   left: 0;
+   position: inherit;
+   margin-left: 5%;
+   background-color: #33BF63;
+   font-family: Helvetica, sans-serif;
+   font-weight: lighter;
+   width: 20%;
+   height: 20px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+  padding-top: 3px;
+}
+.post-card {
+   background-color: white;
+   -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.75);
+   -moz-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.75);
+   box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.75);
+   font-family: Helvetica, sans-serif;
+   font-weight: lighter;
+   padding-top: 10px;
+   border-top: 1px solid #7F7F7F;
+   border-bottom: 1px solid #7F7F7F;
+   border-top-left-radius: 0px;
+   border-top-right-radius: 5px;
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+   width: 90%;
+   margin-left: auto;
+   margin-right: auto;
+  margin-bottom: 10px;
+}
+.post-card:hover {
+   background-color: #EBEFF0;
+}
+.post-card a {
+   text-decoration: none;
+}
+.topandmiddle {
+   background-color: transparent;
+   padding-left: 10px;
+}
+.profilepic {
+   display: inline-block;
+   background-color: transparent;
+   width: 15%;
+   text-align: center;
+}
+.profilepic img {
+   width: 45px;
+   height: 45px;
+   
+}
+.usernameandcontent {
+   display: inline-block;
+   background-color: transparent;
+   vertical-align: top;
+}
+.usernametext {
+   font-size: 18px;
+   font-weight: bold;
+   color: black;
+}
+.firstbuttondiv {
+   width: 30%;
+   display: inline-block;
+   text-align: center;
+}
+.secondbuttondiv {
+   width: 30%;
+   display: inline-block;
+   text-align: center;
+}
+.thirdbuttondiv {
+   width: 30%;
+   display: inline-block;
+   text-align: center;
+}
+.likebutton {
+   border: none;
+   cursor: pointer;
+   background: url('https://socialwebapp.drodriguez.dev/assets/likebutton.png') left center no-repeat;
+   background-size: 100% 100%;
+   background-color: transparent;
+   width: 27px;
+   height: 26px;
+   margin-bottom:5px;
+}
+.firstbuttondiv:hover .likebutton {
+   border: none;
+   cursor: pointer;
+   background: url('https://socialwebapp.drodriguez.dev/assets/likebutton-hover.png') left center no-repeat;
+   background-size: 100% 100%;
+   background-color: transparent;
+   width: 27px;
+   height: 26px;
+   margin-bottom:5px;
+}
+.likebuttonnum {
+   color:#7F7F7F;
+   font-weight: bold;
+}
+.firstbuttondiv:hover .likebuttonnum {
+   color: #E0245E;
+   font-weight: bold;
+}
+.repostbutton  {
+   border: none;
+   cursor: pointer;
+   background: url('https://socialwebapp.drodriguez.dev/assets/repostbutton.png') center center no-repeat;
+   background-size: 95% 95%;
+   background-color: transparent;
+   width: 26px;
+   height: 26px;
+}
+.secondbuttondiv:hover .repostbutton  {
+   border: none;
+   cursor: pointer;
+   background: url('https://socialwebapp.drodriguez.dev/assets/repostbutton-hover.png') center center no-repeat;
+   background-size: 95% 95%;
+   background-color: transparent;
+   width: 26px;
+   height: 26px;
+}
+.repostbuttonnum {
+   color:#7F7F7F;
+   font-weight: bold;
+}
+.secondbuttondiv:hover .repostbuttonnum {
+   color:#33BF63;
+   font-weight: bold;
+}
+.commentbutton {
+   border: none;
+   cursor: pointer;
+   background: url('https://socialwebapp.drodriguez.dev/assets/commentbutton.png') left center no-repeat;
+   background-size: 100% 100%;
+   background-color: transparent;
+   width: 26px;
+   height: 26px;
+}
+.commentbuttonnum {
+   color:#7F7F7F;
+   font-weight: bold;
+}
+.thirdbuttondiv:hover .commentbutton {
+   border: none;
+   cursor: pointer;
+   background: url('https://socialwebapp.drodriguez.dev/assets/commentbutton-hover.png') left center no-repeat;
+   background-size: 100% 100%;
+   background-color: transparent;
+   width: 26px;
+   height: 26px;
+}
+.thirdbuttondiv:hover .commentbuttonnum {
+   color: #644d6f;
+   font-weight: bold;
+}
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://socialwebapp.drodriguez.dev/assets/updatepass-stylesheet.css">
+  </head>
+  <body>
+     <!---------------------- SIDE  NAVIGATION -------------------------------->
+    
+    <div class="sidenav">
+      <a href="/users/<%= userid %>"><button type="button" class="profilebutton"></button></a>
+			<br><br>
+      <a href="/home" style="text-decoration: none;"><button type="button" class="feedbutton"></button></a> 
+      <br><br>
+			<a href="/search" style="text-decoration: none;"><button type="button" class="searchbutton"></button></a>
+			<br><br>
+      <form action="/logout" method="post">
+		  	<input type="submit" class="logoutbutton" value="">
+      </form>
+		</div>
+    
+    <!------------------ END OF SIDE NAVIGATION ----------------------------------------->
+    
+
+    
+  <br><br>
+    <div class="edit-card"><br>
+      <center>
+      <span style="color: #777777;font-size: 25px;font-weight:bold">Update Password</span><br><br>
+       <form action="" method="post">
+         
+        </form> 
+      <input type="password"  class="currentpass" id="currentpass" value="" placeholder="Enter current password"> 
+        <br><br>
+      <input type="password"  class="newpass" id="newpass" value="" placeholder="Enter new password">   
+        <br><br>
+      <input type="password" class="confirmpass" id="confirmpass" value="" placeholder="Confirm new password" onkeyup="PassMatchCheck();">   
+      <br><br>
+      <input type="submit" class="submit" id="submit" value="Send New Password" onclick="sendPassword();" />
+      <br><br>
+        <span id="submit-response"></span>
+        <br>
+      </center>
+    </div>
+    
+   <script type="text/javascript">
+            //checks to see if post has been liked already so it can set true or false
+         
+    function PassMatchCheck() {
+          var newpass = document.getElementById("newpass").value;
+          var confirmpass = document.getElementById("confirmpass").value;
+      
+        if(newpass == confirmpass){
+          document.getElementById("submit-response").innerHTML = "";
+          return true;
+        } else {
+          document.getElementById("submit-response").innerHTML = "Your new and confirm passwords do not match.";
+          return false;
+        }
+      } 
+     
+     function sendPassword(){
+       if(PassMatchCheck) {
+         
+         var currentpass = document.getElementById("currentpass").value;
+         var newpass = document.getElementById("newpass").value;
+         var confirmpass = document.getElementById("confirmpass").value;
+         
+         jQuery.ajax({
+                  url: "https://socialwebapp.drodriguez.dev/routes/update/updatepass",
+                  data:'userid='+<%= userid %>+'&currentpass='+currentpass+'&newpass='+newpass,
+                  type: "POST",
+                  success:function(data){
+                    if(data == "Password Updated"){
+                      document.getElementById("submit-response").innerHTML = "Password has been successfully updated.<br>";
+                     } else if(data == "Unable to update password."){
+                       document.getElementById("submit-response").innerHTML = "Your current password is incorrect.<br>";
+                     }
+                  }
+                 });
+        } else {
+      
+        }
+     }
+     
+          
+    </script>
+    
+    

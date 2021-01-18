@@ -1,0 +1,157 @@
+body {
+	margin:0;
+	padding:0;
+  width: 100%;
+  height: 100%;
+	min-width: 400px;
+	background-color: white;
+}
+h1 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+.navbar { 
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 25px;
+  padding-left: 15px;
+  padding-top: 15px;
+  z-index: 2;
+  background-color: #294069;
+  box-shadow: 0 4px 2px -2px gray;
+  position: fixed;
+  width: 100%;
+  height: 45px;
+  top: 0;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+.sidenav {
+  margin-top: 60px;
+	margin-left: 20px;
+	background-color: transparent;
+	display: inline-block;
+	width: 10%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+.profilebutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/profilepic.png') left center no-repeat;
+	background-size: 100% 100%;
+	background-color: transparent;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.feedbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/feedbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.settingsbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/settingsbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	background-color: transparent;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+.logoutbutton {
+	border: none;
+	cursor: pointer;
+	background: url('https://socialwebapp.drodriguez.dev/assets/logoutbutton.png') left center no-repeat;
+	background-size: 100% 100%;
+	background-color: transparent;
+	width: 50px;
+	height: 50px;
+	margin-bottom:5px;
+}
+
+.results-container {
+   display: inline-block;
+   float: right;
+  margin-right: 10%;
+   width: 70%;
+   height: 90%;
+}
+
+#searchbar {
+	width: 90%;
+	height: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+	border-radius: 5px;
+	border-width: 0px;
+	background-color: #ebebf0;
+	font-size: 15px;
+	font-weight: lighter;
+	padding-left: 5px;
+}
+.post-card {
+   background-color: white;
+   -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.75);
+   -moz-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.75);
+   box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.75);
+   font-family: Helvetica, sans-serif;
+   font-weight: lighter;
+   padding-top: 10px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+.post-card:hover {
+   background-color: #EBEFF0;
+}
+.post-card a {
+   text-decoration: none;
+}
+.topandmiddle {
+   background-color: transparent;
+   padding-left: 10px;
+}
+.profilepic {
+   display: inline-block;
+   background-color: transparent;
+   width: 15%;
+   text-align: center;
+}
+.profilepic img {
+   width: 45px;
+   height: 45px;
+   
+}
+.usernameandcontent {
+   display: inline-block;
+   background-color: transparent;
+   vertical-align: top;
+}
+.usernametext {
+   font-size: 18px;
+   font-weight: bold;
+   color: black;
+}

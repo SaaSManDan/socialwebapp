@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="./assets/resetpass-stylesheet.css">
+  </head>
+  <body>
+    <br><br><br>
+        <center>
+    <div class="signup-card"><br>
+      <center>
+      <span style="color: #777777;font-size: 25px;font-weight:bold">Reset your password</span>
+        <br><font color='red'>Your new password must contain at least 8 characters - at least one uppercase, one lowercase and a number</font><br>
+        <br>
+      <input type="password"  class="newpass" id="newpass" value="" placeholder="Enter new password" onkeyup="validatePassword()"> 
+        <span id="pass-format-status"></span>
+        <br><br>
+      <input type="password" class="confirmpass" id="confirmpass" value="" placeholder="Confirm new password" onkeyup="PassMatchCheck();">   
+      <span id="pass-match-status"></span>
+        <br><br>
+      <input type="submit" class="submitbutton" id="submitbutton" value="Send New Password" onclick="sendPassword();" />
+      <br><br>
+        <span id="submit-response"></span>
+        <br>
+      </center>
+    </div>
+     </center>
+  </body>
+  
+
+<script type="text/javascript">
+    function validatePassword() {
+      var password_input = document.getElementById("newpass").value;
+      var pass_regex = new RegExp(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/g);
+      if (pass_regex.test(password_input)) {
+       document.getElementById("pass-format-status").innerHTML = "";
+        return true;
+      } else {
+       document.getElementById("pass-format-status").innerHTML = "<br><font color='red'>Your password format is incorrect.</font>";
+        return false;
+      }
+    }
+         
+    function PassMatchCheck() {
+          var newpass = document.getElementById("newpass").value;
+          var confirmpass = document.getElementById("confirmpass").value;
+      
+        if(newpass == confirmpass){
+          document.getElementById("pass-match-status").innerHTML = "";
+          return true;
+          console.log('true');
+        } else {
+          document.getElementById("pass-match-status").innerHTML = "<br><font color='red'>Your new and confirm passwords do not match.</font>";
+          return false;
+          console.log('false');
+        }
+      } 
+     
+     function sendPassword(){
+       if(validatePassword() && PassMatchCheck()) {
+         var newpass = document.getElementById("newpass").value;
+         
+         jQuery.ajax({
+                  url: window.location.href,
+                  data:'newpass='+newpass,
+                  type: "POST",
+                  success:function(data){
+                    if(data == "Password has been updated!"){
+                      document.getElementById("submit-response").innerHTML = "<font color='green'>Password has been successfully updated!</font><br>";
+                        setTimeout(function () {
+                            window.location.href = "https://socialwebapp.drodriguez.dev/"; 
+                        }, 5000);
+                     } else if(data == "Unable to update password."){
+                       document.getElementById("submit-response").innerHTML = "Unable to update password.<br>";
+                     }
+                  }
+                 });
+        } else {
+          document.getElementById("submit-response").innerHTML = "Please check for errors then try again.<br>";
+        }
+     }
+     
+          
+    </script>
+    
+    

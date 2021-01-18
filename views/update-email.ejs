@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://socialwebapp.drodriguez.dev/assets/updateemail-stylesheet.css">
+  </head>
+  <body>
+     <!---------------------- SIDE  NAVIGATION -------------------------------->
+    
+    <div class="sidenav">
+      <a href="/users/<%= userid %>"><button type="button" class="profilebutton"></button></a>
+			<br><br>
+      <a href="/home" style="text-decoration: none;"><button type="button" class="feedbutton"></button></a> 
+      <br><br>
+			<a href="/search" style="text-decoration: none;"><button type="button" class="searchbutton"></button></a>
+			<br><br>
+      <form action="/logout" method="post">
+		  	<input type="submit" class="logoutbutton" value="">
+      </form>
+		</div>
+    
+    <!------------------ END OF SIDE NAVIGATION ----------------------------------------->
+    
+
+    
+  <br><br>
+    <div class="edit-card"><br>
+      <center>
+      <span style="color: #777777;font-size: 25px;font-weight:bold">Update Email</span><br><br>
+       <form action="" method="post">
+         
+        </form> 
+      <input type="text"  class="newemail" id="newemail" value="" placeholder="Enter new email" onkeyup="checkEmailAvailability(); validateEmail();">
+        <span id="email-format-status"></span>
+        <span id="email-availability-status"></span>
+        <br><br>
+      <input type="password"  class="password" id="password" value="" placeholder="Enter your password">   
+        <br><br>
+      <input type="submit" class="submit" id="submit" value="Update Email" onclick="sendNewEmail();" />
+      <br><br>
+        <span id="submit-response"></span>
+        <br>
+      </center>
+    </div>
+    
+   <script type="text/javascript">
+    var isEmailAvailable;
+         
+    function validateEmail(){
+        var emailinput = document.getElementById("newemail").value;
+        const emailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(emailinput.match(emailformat))	{
+          document.getElementById("email-format-status").innerHTML = "";
+           return true;
+          console.log('format true');
+          }	else {
+          document.getElementById("email-format-status").innerHTML = "<br><font color='red'>This email format is incorrect.</font>";
+            return false;
+            console.log('format false');
+          }
+	    }
+  
+  function checkEmailAvailability() {
+      var emailinput2 = document.getElementById("newemail").value;
+         jQuery.ajax({
+            url: "https://socialwebapp.drodriguez.dev/routes/email_availability_check",
+            data:'email='+emailinput2,
+            type: "POST",
+            success:function(response){
+              var status = response;
+              if(status == "Unavailable"){
+                document.getElementById("email-availability-status").innerHTML = "<br><font color='red'>This email is already in use.</font>";
+                isEmailAvailable = "false";
+                console.log("Email: "+isEmailAvailable);
+              } else if(status == "Available"){
+                document.getElementById("email-availability-status").innerHTML = "";
+                isEmailAvailable = "true";
+                console.log("Email: "+isEmailAvailable);
+              }
+          },
+            error:function (){}
+          });
+      }
+     
+     
+     function sendNewEmail(){
+         if(isEmailAvailable == "true" && validateEmail()) {
+
+           var newemail = document.getElementById("newemail").value;
+           var password = document.getElementById("password").value;
+
+           jQuery.ajax({
+                    url: "https://socialwebapp.drodriguez.dev/routes/update/update-email",
+                    data:'userid='+<%= userid %>+'&newemail='+newemail+'&password='+password,
+                    type: "POST",
+                    success:function(data){
+                      if(data == "Password updated successfully."){
+                        document.getElementById("submit-response").innerHTML = "<font color='green'>Email has been successfully updated.</font><br>";
+                       } else if(data == "Password is incorrect."){
+                         document.getElementById("submit-response").innerHTML = "<font color='red'>Your password is incorrect.</font><br>";
+                       }
+                    }
+                   });
+          } else {
+              document.getElementById("submit-response").innerHTML = "<font color='red'>Please ensure all inputs are correct.</font><br>";
+          }
+     }
+          
+    </script>
+    
+    
