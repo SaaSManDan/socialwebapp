@@ -1,0 +1,4 @@
+node_modules
+.htaccess
+.env
+nohup.out
