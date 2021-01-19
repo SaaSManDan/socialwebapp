@@ -26,7 +26,7 @@ Other technologies: Amazon S3
 - **Search Functionality**
   - Users have the ability to search for any posts (based on the text in them) or users by username
 - **Settings Functionality** 
-  - Users can set change their username, bios and profile pictures
+  - Users can change their username, bios and profile pictures
   - Users can update their email or password
 - **Others**
   - Amazon S3 is used to host profile picture images
