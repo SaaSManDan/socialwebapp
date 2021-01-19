@@ -3,6 +3,12 @@ This is a full-stack Twitter-like social media web application.
 
 #### Live Project: https://socialwebapp.drodriguez.dev
 
+## Table of Content
+* [Stack](#Stack)
+* [Features](#Features)
+* [Database Schema](#Database Schema)
+* [Dependencies](#Dependencies)
+
 ## Stack
 Front-end: CSS
 
