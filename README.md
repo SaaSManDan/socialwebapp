@@ -30,7 +30,7 @@ Other technologies: Amazon S3
   - Amazon S3 is used to host profile picture images
   
 ## Database Schema
-![Database schema](hhttps://i.ibb.co/ZRrRssR/Screen-Shot-2021-01-18-at-10-20-51-PM.png)
+![Database schema](https://i.ibb.co/ZRrRssR/Screen-Shot-2021-01-18-at-10-20-51-PM.png)
   
 ## Dependencies
 The following dependencies are packages that should be installed using NPM.
