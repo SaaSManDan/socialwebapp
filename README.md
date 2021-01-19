@@ -10,7 +10,7 @@ Database: MySQL
 
 Other technologies: Amazon S3
 
-#### Project features
+## Project features
 
 - **Register and sign-in system**
   - An email is sent to the email on a new user upon registration (using nodemailer)
