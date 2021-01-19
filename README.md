@@ -8,7 +8,7 @@ This is a full-stack Twitter-like social media web application.
 * [Features](#Features)
 * [Database Schema](#dtabase-schema)
 * [Dependencies](#Dependencies)
-* [How to run this web application?] (#)
+* [How to run this web application?](#how-to-run-this-web-application)
 
 ## Stack
 Front-end: CSS
