@@ -26,7 +26,9 @@ Other technologies: Amazon S3
 - **Settings Functionality** 
   - Users can set change their username, bios and profile pictures
   - Users can update their email or password
-
+- **Others**
+  - Amazon S3 is used to host profile picture images
+  
 ## Dependencies
 The following dependencies are packages that should be installed using NPM.
 
