@@ -64,7 +64,7 @@ crypto-js
 
 Others:
 
-auto-restart.sh
+### auto-restart.sh
   - For whatever reason, nodemon would not work on my server so I created my own shell script to restart the server upon any new changes to any file in the project. Run the following command in your shell:
   
 ```
