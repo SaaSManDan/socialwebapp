@@ -74,7 +74,7 @@ crypto-js
 *Others:*
 
 auto-restart.sh
-  - For whatever reason, nodemon would not work on my server so I created my own shell script to restart the server upon any new changes to any file in the project. Run the following command in your shell:
+  - For whatever reason, nodemon would not work on my server so I created my own shell script to restart the server upon any new changes to any file within the directories. Run the following command in your shell:
   
 ```
 $ nohup watch -n 1 bash auto-restart.sh &
