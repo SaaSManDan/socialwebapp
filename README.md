@@ -11,7 +11,7 @@ Database: MySQL
 Other technologies: Amazon S3
 
 ## Dependencies
-The following dependencies are packages that should be installed with NPM.
+The following dependencies are packages that should be installed using NPM.
 
 express
 
