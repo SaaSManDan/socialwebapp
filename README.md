@@ -1,5 +1,5 @@
 # Social Media Web Application
-This is a full-stack Twitter-like social media web application project.
+This is a full-stack Twitter-like social media web application.
 
 ## Stack
 Front-end: CSS
