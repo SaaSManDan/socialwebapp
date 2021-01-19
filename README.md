@@ -42,7 +42,7 @@ aws-sdk
 crypto-js
 
 ## How to run this web application?
-Go to https://socialwebapp.drodriguez.dev
+Go to https://socialwebapp.drodriguez.dev or download the project and install the dependencies above. 
 
 ## What features does this application include?
 This web application includes the following features:
