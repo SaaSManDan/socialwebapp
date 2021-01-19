@@ -33,7 +33,6 @@ Other technologies: Amazon S3
 ![Database schema](https://i.ibb.co/ZRrRssR/Screen-Shot-2021-01-18-at-10-20-51-PM.png)
   
 ## Dependencies
-The following dependencies are packages that should be installed using NPM.
 
 express
 
@@ -64,7 +63,7 @@ aws-sdk
 crypto-js
 
 ## How to run this web application?
-Go to https://socialwebapp.drodriguez.dev for the live project or download the project and install the dependencies above. 
+Go to https://socialwebapp.drodriguez.dev for the live project or download the project and install the dependencies above using npm. 
 
 
 
