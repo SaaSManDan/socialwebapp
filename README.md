@@ -14,9 +14,9 @@ Other technologies: Amazon S3
 
 - **Register and sign-in system**
   - An email is sent to the email on a new user upon registration (using nodemailer)
-  - A forgot password page is also available and an email with a generated token can be set to reset password
+  - A forgot password page is available and an email with a generated token can be sent to reset password
 - **Posts Feed**
-  - Users can see the posts of those they follow, the posts those followers share as well as posts they've shared themselves
+  - Users can see the posts of those they follow, posts their followers share as well as posts they've shared themselves
   - Users can also see their own posts
   - Users have the ability to like, repost or comment on each post
 - **Profile Pages**
