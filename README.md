@@ -63,7 +63,12 @@ aws-sdk
 crypto-js
 
 auto-restart.sh
-  - For whatever reason, nodemon would not work so I created my own shell script to restart the server upon any new changes to any file in the project
+  - For whatever reason, nodemon would not work on my server so I created my own shell script to restart the server upon any new changes to any file in the project. Run the following command in your shell:
+  
+```
+$ nohup watch -n 1 bash auto-restart.sh &
+```
+
 
 ## How to run this web application?
 Go to https://socialwebapp.drodriguez.dev for the live project or download the project and install the dependencies above using npm. 
