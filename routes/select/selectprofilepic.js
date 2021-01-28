@@ -8,13 +8,21 @@ const path = require('path');
 
 const router = express.Router();
 
+//dotenv vars
+require("dotenv").config();
+
+const hostde = process.env.HOST;
+const userde = process.env.USER;
+const passwordde = process.env.PASSWORD;
+const databasede = process.env.DATABASE;
+      
 
 //Create connetion
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'dansvyeu_admin',
-  password: 'dani8801',
-  database: 'dansvyeu_twitterclone'
+  host: hostde,
+  user: userde,
+  password: passwordde,
+  database: databasede
 });
 
 //Connect
