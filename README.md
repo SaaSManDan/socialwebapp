@@ -1,7 +1,7 @@
 # Social Media Web Application
 This is a full-stack Twitter-like social media web application.
 
-![GIF Preview of Project](https://s2.gifyu.com/images/socialwebapp-demo-recording.md.gif)
+![GIF Preview of Project](https://project1-post-images.s3.amazonaws.com/socialwebapp-demo-recording.gif)
 
 #### Live Project: https://socialwebapp.drodriguez.dev
 
