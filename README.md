@@ -1,4 +1,4 @@
-# Social Media Web Application
+# Twitter Clone - Social Media Web Application
 This is a full-stack Twitter-like social media web application.
 
 ![GIF Preview of Project](assets/socialwebapp-demo-recording.gif)
