@@ -3,7 +3,7 @@ This is a full-stack Twitter-like social media web application.
 
 ![GIF Preview of Project](assets/socialwebapp-demo-recording.gif)
 
-#### Live Project: https://socialwebapp.drodriguez.dev
+#### Live Project: https://socialwebapp.drodriguez.dev (CURRENTLY UNAVAILABLE)
 
 ## Table of Content
 * [Stack](#Stack)
